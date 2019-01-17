@@ -108,4 +108,8 @@ venv.bak/
 *.out
 *.synctex.gz
 main.pdf
+*.bbl
+*.blg
+*.cb
+*.cb2
 .ipynb_checkpoints

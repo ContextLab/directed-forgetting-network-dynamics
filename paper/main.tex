@@ -1,10 +1,22 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{geometry}
-\usepackage{natbib}
-\usepackage{pxfonts}
+\documentclass[11pt]{article}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{fancyhdr}
 \usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{changebar}
+\usepackage{sidecap}
+\usepackage{soul}
+\usepackage[sort]{natbib}
+\usepackage{pxfonts}
+\usepackage[nolists]{endfloat}
+\usepackage[usenames]{color}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{xspace}
 \usepackage{hyperref}
+
+\geometry{letterpaper,left=1in,right=1in,top=1in,bottom=1in}
 
 \title{Network dynamics underlying contextually mediated intentional forgetting}
 \author{Jeremy R. Manning\\Dartmouth College, Hanover, NH\\jeremy.r.manning@dartmouth.edu}
@@ -17,6 +29,261 @@ Abstract goes here...
 \end{abstract}
 
 Main text here...
+
+%copied from PB&R paper as a placeholder: https://github.com/ContextLab/directed-forgetting-communications/tree/master/papers/MannEtal14
+\section*{Methods}
+\subsection*{Participants}
+Our functional neuroimaging study at Princeton University
+included 25 participants (10 male, 15 female), ages 19 to 34 (mean
+$\pm$ SEM: 21.3 $\pm$ 0.6 years).  We excluded one 19-year-old male
+participant from all of our analyses because his recall performance
+was near perfect (and greater than 3 standard deviations above the
+mean performance) in all of the experimental conditions (see
+\textit{Experimental paradigm}), which limited our ability to observe
+his behavioral and neural signatures of intentional forgetting.  The
+participants were paid \$20/hour for their participation, and
+experimental testing sessions lasted approximately 1.5 hours.  Our
+experimental protocol was approved by Princeton's institutional review
+board.
+
+Our sample size was chosen \textit{a priori} based on sample sizes
+used in previous list-method directed forgetting
+studies~\citep{SahaEtal13}.  Accounting for differences in our
+experimental design (whereby each participant in our experiment
+experienced multiple experimental conditions), we estimated that a
+sample size of between 20 and 30 participants would provide a
+reasonable test of our main hypothesis.
+
+\subsection*{Experimental paradigm}
+Our experimental paradigm was organized into 8 \textit{study-test}
+blocks and 1 \textit{localizer} block.  Each of these blocks occurred
+during a distinct functional run (see \textit{Functional
+  neuroimaging}).
+
+\begin{sidewaysfigure}[t]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/methods}
+\caption{\textbf{Methods overview.  a.  Study-test block.} During each
+  study-test block, participants first studied list A while passively
+  viewing images of outdoor scenes between the word presentations.
+  They then received a memory cue instructing them to either forget or
+  remember the list A words.  Next they studied list B (without
+  viewing scene images between the word presentations).  Finally they
+  were instructed to verbally recall as many words (from either list A
+  or list B) as they could remember in 1 minute.  Participants
+  experienced a total of 8 study-test blocks during the experiment.
+  \textbf{b. Localizer block.}  During each localizer block,
+  participants viewed images drawn from three categories: outdoor
+  scenes, phase-scrambled scenes, and everyday objects.  Participants
+  were instructed to press a button on a handheld control pad when an
+  image exactly matched the image that preceded it.  Data from this
+  block were used to train pattern classifiers to estimate
+  scene-related activity during the study-test blocks.  A summary of
+  the entire experiment, comprising 8 study-test blocks and the
+  localizer block, is shown at the bottom of the figure; blue
+  indicates list B study following a forget cue, and red indicates
+  list B study following a remember cue.}
+\label{fig:methods}
+\end{center}
+\end{sidewaysfigure}
+
+In each \textit{study-test} block (Figure~\ref{fig:methods}a),
+participants viewed a central fixation cross for 3 s (not shown in the
+figure), followed by a 3 s delay.  They then studied a 16-word list,
+list A, followed by an on-screen \textit{memory cue} instruction
+telling them to either \textit{forget} or \textit{remember} the list A
+items.  Participants then studied a second 16-word list, list B.  (See
+\textit{List construction} for a detailed description of how we
+generated the random word lists.)  Finally, participants received an
+on-screen \textit{recall cue} instructing them to verbally recall
+either list A or list B (they were given 1 minute to recall the words
+in any order they wished).  Prior to the start of the experiment,
+participants were told that, with 100\% certainty, a forget
+instruction meant that they would be asked to recall list B on that
+block (despite this instruction, we tested participants' memory for
+list A on the final forget block as described below).  We also told
+participants (truthfully) that, if they instead received a remember
+instruction, then they would be asked to recall either list A or list
+B, with equal probability.
+
+Each list word appeared onscreen for 3 s, and the word presentations
+were separated by 3 s.  During the 3 s inter-word intervals between
+list A words, participants viewed 3 randomly chosen images of outdoor
+scenes (presented for 1 s each in immediate succession). Crucially,
+scenes were not presented during the inter-word intervals during list
+B study (instead, the screen was left blank). Each scene image
+appeared only once during the entire experiment.  Prior to the start
+of the experiment we (truthfully) told participants that we would not
+test their memory for the scene images, but that they should passively
+view the scene images when they appeared.
+
+Each participant received a total of 4 remember instructions and 4
+forget instructions, across the 8 study-test blocks they experienced.
+The order in which participants experienced remember or forget blocks
+was randomized independently for each participant, subject to the
+constraints that (a) the same cue type could not appear in 3
+successive blocks, and (b) the last block was always a forget block.
+(These two constraints also meant that the second-to-last block was
+always a remember block.)  During two (randomly chosen) remember
+blocks, participants were asked to recall the list A words, and on the
+remaining two remember blocks the participants were asked to recall
+the list B words.  Participants were asked to recall list B words on
+every forget block except the last, when they were instead asked to
+recall the list A words.  In other words, participants were misled
+into believing they could forget the list A words during the last
+study-test block, but were then nonetheless asked to recall list A.
+This allowed us to study the behavioral and neural effects of the
+forget instruction on the to-be-forgotten information.
+
+The localizer block (Figure~\ref{fig:methods}b) occurred after the
+last study-test block.  The localizer block provided data for training
+pattern classifiers to track scene-related activity throughout the
+study-test blocks.  In this block, participants viewed images from
+three categories: outdoor natural scenes, Fourier phase-scrambled images of
+outdoor natural scenes (where each color channel was scrambled independently
+and then re-combined), and everyday objects.  The outdoor natural scene
+images used in our experiment were selected from the Scene
+UNderstanding (SUN) Database~\citep{XiaoEtal10} and the object images
+were selected from the Amsterdam Library of Object Images~\citep[ALOI;
+][]{GeusEtal05}.  Each image was displayed for 500 ms followed by a
+1500 ms pause.  Images were organized into 27 sets of 8 same-category
+images (9 sets per category; the assignment of images to sets was done
+randomly for each participant). Each set of 8 images was displayed
+(one at a time), followed by a 12 s pause before the next set of 8.
+Participants performed a \textit{one-back task} as they viewed the
+images, whereby they were instructed to press a button on a handheld
+controller when an image exactly matched the image that preceded it.
+(Repetitions occurred on 15\% of the image presentations.)
+
+\subsubsection*{List construction}
+Each participant studied a total of sixteen 16-word lists (2 per
+block).  All of the participants studied the same lists, but in a
+unique randomized order.  Each list was assigned (randomly for each
+participant) to one of the four experimental conditions.  To construct
+the lists, we first drew 256 words uniformly at random from the
+Medical Research Council Psycholinguistic Database~\citep{Colt81}.  We
+then constructed 16 lists that were matched according to word
+frequency (mean: 49.3, SD: 16.9), number of letters (mean: 5.4, SD:
+0.3), number of syllables (mean: 1.7, SD: 0.1), concreteness (mean:
+540.3, SD: 12.0), and imageability (mean: 559.7, SD: 8.9).  (These
+means and standard deviations are computed across lists.)
+
+\subsubsection*{Audio recording}
+We recorded participants'
+verbal recalls using a customized MR-compatible recording system
+(FOMRI II, Optoacoustics Ltd.).  We used the Penn TotalRecall
+tool (http://memory.psych.upenn.edu) to score and annotate the verbal
+responses.
+
+
+\subsection*{Functional neuroimaging}
+\subsubsection*{Imaging parameters}
+All participants were scanned using a Siemens Skyra 3 T full-body
+scanner (Siemens, Erlangen, Germany) with a volume head coil.  We
+collected, from each participant, 10 functional runs: 8 study-test
+blocks and 1 localizer block (see \textit{Experimental paradigm}),
+plus one additional run (in which participants studied and recalled a
+list of 12 words prior to the localizer block) that we did not examine
+in this paper.  The functional runs comprised T2*-weighted
+gradient-echo echo-planar (EPI) sequences (voxel size
+$= 3 \times 3 \times 3$ mm; repetition time [TR] $=$ 2000 ms, echo
+time [TE] $=$ 30 ms; flip angle $= 71^\circ$; matrix $= 64 \times 64$;
+slices $=$ 36; field of view [FoV] $=$ 192 mm).  We also collected,
+for each participant, a single high-resolution T1-weighted
+magnetization-prepared rapid-acquisition gradient echo (MPRAGE) image
+to facilitate registration and normalization (voxel size
+$= 1 \times 1 \times 1$ mm; TE $=$ 3.3 ms; flip angle $= 7^\circ$;
+matrix $= 256 \times 256$; slices $=$ 176; FoV $=$ 256 mm), and a
+single fast low-angle shot (FLASH) field map to correct spatial
+distortions of the EPI images (voxel size
+$= 0.75 \times 0.75 \times 3$ mm; TE $=$ 2.6 ms; flip angle
+$= 70^\circ$; matrix $= 256 \times 256$; slices $=$ 36; FoV $=$ 192
+mm).
+
+\subsubsection*{Image preprocessing}
+We preprocessed the fMRI data using the FMRI Expert Analysis Tool
+(FEAT) Version 6.00, which is part of FMRIB's Software Library (FSL,
+http://www.fmrib.ox.ac.uk/fsl).  We removed the first three brain
+volumes from each functional run to allow for T1 stabilization.  We
+then applied the following pre-statistics processing steps to the
+functional images: motion correction using MCFLIRT~\citep{JenkEtal02};
+slice-timing correction using Fourier-space time-series
+phase-shifting; non-brain removal using BET~\citep{Smit02b};
+grand-mean intensity normalization of the entire 4D dataset by a
+single multiplicative factor; and high-pass temporal filtering
+(Gaussian-weighted least-squares straight line fitting, with sigma $=$
+64.0 s).  We then used FLIRT~\citep{JenkEtal02} to
+register each participant's functional images to standard (MNI) space.
+
+
+\subsubsection*{Multivariate pattern analysis (MVPA)}
+After pre-processing the fMRI data, we used the Harvard-Oxford
+cortical atlas~\citep{DesiEtal06}
+to define a mask (using an inclusion threshold of 25\%) consisting of
+the union of the posterior and anterior parahippocampal gyrus; the
+posterior cingulate; and the anterior temporal, posterior temporal,
+and temporal occipital fusiform~\citep[this mask was intended to
+encompass the parahippocampal place area and retrosplenial cortex, as
+these regions have been previously implicated in scene
+processing;][]{EpstEtal99}. We used the in-mask voxels to
+train L2-regularized multinomial logistic regression classifiers using
+data from each participant's localizer block.  (We trained the
+classifiers independently for each participant.)  To account for the
+6~s delay in the peak of the hemodynamic response function, we shifted
+the event labels forward in time by 6~s (3 images), such that each
+brain volume was matched up with the event that occurred 6 seconds
+earlier.  The multinomial classifiers were trained to discriminate
+when the participants were viewing images of scenes versus everyday
+objects versus phase-scrambled scenes versus rest (where ``rest'' was
+defined as the last 3 volumes collected during the 12 s pause between
+the 8-image blocks).  We evaluated the classifiers' abilities to
+estimate scene-related activity (versus non-scene activity) using
+9-fold cross validation applied to data from the localizer block (mean
+area under the receiver operating characteristic curves across 24
+participants $\pm$ SEM: 0.78 $\pm$ 0.006).  We used the trained
+classifiers to predict the degree of scene-related activity (ranging
+from 0 to 1, inclusive) reflected in each brain volume collected
+during the study-test blocks.
+
+The primary goal of our study was to test the hypothesis that
+participants respond to the forget cue by flushing contextual
+information related to list A.  This would manifest as a larger
+decrease in scene-related activity following a forget cue than
+following a remember cue.  We predicted that the contextual flushing
+process would occur directly in response to the forget cue, even
+before participants began to study list B.  We refer to this time
+interval (from the time of the forget/remember instruction until the
+beginning of list B) as the \textit{critical period}
+(Figure~\ref{fig:methods}a).  We defined a measure called
+\textit{scene drop} to quantify the degree of contextual flushing
+following a memory cue.  Scene drop was defined as the decrease in
+scene-related activity from just before the critical period to the
+time after the critical period. Specifically, for each block, we took
+a pre-critical-period measurement of scene activity (averaging over
+the interval beginning after the last scene had been presented in list
+A and ending just before the forget/remember memory cue) and
+subtracted out a post-critical-period measurement of scene activity
+(averaging over the interval beginning when the first word in list B
+appeared onscreen and ending when the last word in list B disappeared
+from the screen).  Note that, as described above, we applied a 6
+second shift in matching up scene activity estimates to events (so,
+for example, the first scene activity estimate assigned to the
+post-critical period was acquired 6 seconds after the beginning of
+list B study).  Importantly, we hypothesized that scene activity could
+decrease from list A to list B for two reasons: (1) because scenes are
+no longer being viewed onscreen (this is true for both the remember
+and forget conditions), and (2) because of ``flushing out'' of context
+information in the forget condition. By taking our initial measurement
+of scene activity \textit{after} the last of the list A scenes was
+presented, we hoped to minimize the influence of the former factor
+(i.e., whether or not participants were actually viewing scenes) and,
+consequently, to increase the sensitivity of our scene drop measure to
+the ``contextual flushing'' process.  We note, however, that our
+measure of scene drop likely included some lingering traces of
+scene-related activity from the list A scene presentations, which
+would add noise to our scene drop measure.  Crucially, this activity
+should not exert a systematic bias on our analyses because it should
+be equally present, on average, in the forget and remember conditions.
 
 \section*{Acknowledgements}
 This work was supported in part by NSF EPSCoR Award Number 1632738. The content is solely my responsibility and does not necessarily represent the official views of my supporting organizations.
