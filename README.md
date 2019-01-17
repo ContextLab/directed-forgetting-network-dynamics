@@ -34,3 +34,6 @@ I also include a Dockerfile to reproduce our computational environment. Instruct
     - `docker start dffr && docker attach dffr`
     - When you see the `root@` prefix, letting you know you're inside the container
 2. Close a running container with `ctrl + d` from the same terminal you used to launch the container, or `docker stop dffr` from any other terminal
+
+## Downloading the data
+- Add instructions once [this issue](https://github.com/ContextLab/directed-forgetting-network-dynamics/issues) is solved...
