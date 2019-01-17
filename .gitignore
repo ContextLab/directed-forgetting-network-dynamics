@@ -108,3 +108,4 @@ venv.bak/
 *.out
 *.synctex.gz
 main.pdf
+.ipynb_checkpoints
