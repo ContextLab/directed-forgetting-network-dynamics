@@ -113,3 +113,11 @@ main.pdf
 *.cb
 *.cb2
 .ipynb_checkpoints
+
+
+*.npz
+*.mp4
+*.node
+*.edge
+*.jpg
+
