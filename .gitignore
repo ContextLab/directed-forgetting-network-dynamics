@@ -121,3 +121,8 @@ main.pdf
 *.edge
 *.jpg
 
+data/DFFR.zip
+data/DFFR/*/anat/*.nii.gz
+data/DFFR/*/func/*.nii.gz
+data/DFFR/CHANGES
+data/DFFR/*
