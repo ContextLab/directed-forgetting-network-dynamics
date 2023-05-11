@@ -10,7 +10,7 @@ basedir = os.path.split(os.getcwd())[0]
 datadir = os.path.join(basedir, 'data')
 figdir = os.path.join(basedir, 'paper', 'figs', 'source')
 
-raw_data_url = 'https://www.dropbox.com/s/pu0svhhdidvm5qq/DFFR.zip?dl=1'
+raw_data_url = 'https://www.dropbox.com/s/a7kdr51s5su8ddn/DFFR.zip?dl=1'
 
 scratch_dir = os.path.join(basedir, 'data', 'scratch')
 if not os.path.exists(scratch_dir):
@@ -125,3 +125,52 @@ def cmu2nii(Y, R, template=None):
             data[locs[j, 0], locs[j, 1], locs[j, 2], i] = Y[i, j]
     
     return nib.Nifti1Image(data, affine=img.affine)
+
+
+# modified from brainIAK implementation: 
+# https://github.com/brainiak/brainiak/blob/master/brainiak/factoranalysis/tfa.py
+def get_weights(data, F, method='rr'):
+        """Calculate weight matrix based on fMRI data and factors
+
+        Parameters
+        ----------
+
+        data : 2D array, with shape [n_tr, n_voxels]
+            fMRI data from one subject
+
+        F : 2D array, with shape [K, n_voxels]
+            The latent factors from fMRI data.
+        
+        method : string, optional.  Default is 'rr' (ridge regression);
+                 other option is 'ols' (ordinary least squares)
+
+        Returns
+        -------
+
+        W : 2D array, with shape [n_tr, K]
+            The weight matrix from fMRI data.
+
+        """
+
+        beta = np.var(data.T)
+        K = F.shape[0]
+        W = np.zeros((K, data.shape[0]))
+
+        if method == 'rr':
+            W = np.linalg.solve(F.dot(F.T) + beta * np.eye(K),
+                                F.dot(data.T))
+        else:
+            W = np.linalg.solve(F.dot(F.T), F.dot(data.T))
+        
+        return W.T
+
+
+def get_factors(R, centers, widths):
+    def rbf(R, center, width):
+        return np.exp(-np.sum((R - center) ** 2, axis=1) / width)
+    
+    F = np.zeros((centers.shape[0], R.shape[0]))
+    for i in range(centers.shape[0]):
+        F[i, :] = rbf(R, centers[i, :], widths[i])
+    
+    return F
