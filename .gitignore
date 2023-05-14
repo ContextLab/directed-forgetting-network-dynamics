@@ -126,3 +126,4 @@ data/DFFR/*/anat/*.nii.gz
 data/DFFR/*/func/*.nii.gz
 data/DFFR/CHANGES
 data/DFFR/*
+data/scratch/*.pkl
